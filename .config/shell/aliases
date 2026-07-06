@@ -1,0 +1,5 @@
+alias py='python3'
+
+alias clip='clip.exe'
+
+alias ac-bd='sh $HOME/dev/competitive/environments/cpp_atcoder_2025/compile.sh'

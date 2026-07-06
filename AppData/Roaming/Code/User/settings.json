@@ -1,0 +1,37 @@
+{
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "nim": true
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "explorer.confirmDragAndDrop": false,
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "rust-analyzer.linkedProjects": [],
+    "editor.formatOnSave": true,
+    "rust-analyzer.restartServerOnConfigChange": true,
+    "editor.lineNumbers": "relative",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vscode-neovim.useWSL": true,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "git.openRepositoryInParentFolders": "never",
+    "rust-analyzer.lens.enable": false,
+    "rust-analyzer.lens.debug.enable": false,
+    "workbench.startupEditor": "none",
+    "files.eol": "\n",
+    "window.restoreWindows": "none",
+    "haskell.manageHLS": "GHCup",
+    "vim.useSystemClipboard": true,
+    "remote.autoForwardPortsSource": "hybrid",
+    "svelte.enable-ts-plugin": true,
+    "files.autoSave": "onFocusChange",
+    "remote.SSH.remotePlatform": {
+        "datack-ap": "linux"
+    }
+}

@@ -1,0 +1,22 @@
+# # nvm
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# # Goenv
+# if command -v goenv >/dev/null 2>&1; then
+#     eval "$(goenv init -)"
+# fi
+#
+#
+#
+# export SDKMAN_DIR="$HOME/.sdkman"
+# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Rust / Cargo
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+# # ghcup-env
+# [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" 
+
+# mise
+eval "$(mise activate zsh)"
+
+# starship
+eval "$(starship init zsh)"

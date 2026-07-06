@@ -1,0 +1,10 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# dotfiles をコピーしてインストール
+COPY . /root/.dotfiles
+RUN bash /root/.dotfiles/install.sh
+
+SHELL ["/usr/bin/zsh", "-c"]
+CMD ["zsh"]

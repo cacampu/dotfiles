@@ -1,0 +1,14 @@
+# chezmoi は Windows 側でのみ使用し、AppData/ 以下だけを配備する。
+# WSL/Linux 側の設定 (.config/ 等) は install.sh の symlink で管理するため全て無視。
+README.md
+bootstrap.ps1
+Dockerfile.test
+install.sh
+install-linux.sh
+install-wsl.sh
+windows
+.zshenv
+.config
+{{ if ne .chezmoi.os "windows" }}
+AppData
+{{ end }}

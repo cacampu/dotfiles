@@ -1,0 +1,23 @@
+// 既定値を上書きするには、このファイル内にキー バインドを挿入します
+[
+    {
+        "key": "down",
+        "command": "cursorDown",
+        "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "up",
+        "command": "cursorUp",
+        "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "down",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "up",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetVisible && textInputFocus"
+    }
+]

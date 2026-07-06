@@ -1,0 +1,24 @@
+[tools]
+bat    = "latest"
+cabal  = "latest"
+eza    = "latest"
+fd     = "latest"
+ghc    = "latest"
+go     = "latest"
+java   = "corretto"
+julia  = "latest"
+neovim = "latest"
+nim    = "latest"
+node   = "lts"
+ripgrep = "latest"
+zellij = "latest"
+zig    = "0.15.1"
+
+[env]
+EDITOR     = "nvim"
+GOPATH     = "{{env.HOME}}/.local/share/go"
+NIMBLE_DIR = "{{env.HOME}}/.local/share/nimble"
+_.path     = [
+    "~/.local/share/go/bin",
+    "~/.local/share/nimble/bin",
+]

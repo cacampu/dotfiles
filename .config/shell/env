@@ -1,0 +1,22 @@
+export PATH="$HOME/.local/bin:$PATH"
+
+# XDG
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+
+# WSL-specific
+if grep -qi microsoft /proc/version 2>/dev/null; then
+    # X11 cursor settings
+    export XCURSOR_THEME=Adwaita
+    export XCURSOR_SIZE=24
+
+    # SSH Agent Relay
+    export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
+    if ! ss -lnx | grep -q "$SSH_AUTH_SOCK" || [ ! -S "$SSH_AUTH_SOCK" ]; then
+        pkill -f "npiperelay.exe -ei -s //./pipe/openssh-ssh-agent" 2>/dev/null || true
+        rm -f "$SSH_AUTH_SOCK"
+        (setsid socat UNIX-LISTEN:"$SSH_AUTH_SOCK",fork \
+        EXEC:"/mnt/c/bin/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) >/dev/null 2>&1
+    fi
+fi
