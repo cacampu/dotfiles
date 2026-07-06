@@ -16,7 +16,12 @@ function Warn($msg) { Write-Host "[warning]  $msg" -ForegroundColor Yellow }
 
 # WSL ディストリビューションが起動可能かを確認し、なければインストールして終了
 function Ensure-Wsl {
-    wsl -e true 2>$null
+    # PS 5.1 は ErrorActionPreference=Stop だと native コマンドの stderr リダイレクトで
+    # 例外を投げるため、この確認中だけ緩める
+    $prevEap = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    wsl -e true *> $null
+    $ErrorActionPreference = $prevEap
     if ($LASTEXITCODE -ne 0) {
         Log "WSL distro not found. Installing..."
         wsl --install

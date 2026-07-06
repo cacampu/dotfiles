@@ -17,7 +17,8 @@ irm https://raw.githubusercontent.com/cacampu/dotfiles/main/bootstrap.ps1 | iex
 
 これだけで以下がすべて実行される:
 
-1. WSL の確認(未インストールなら `wsl --install` → **再起動後にもう一度同じコマンドを実行**)
+1. WSL の確認(未インストールなら `wsl --install` → **再起動 → Ubuntu を一度起動して
+   ユーザーを作成 → もう一度同じコマンドを実行**)
 2. npiperelay のインストールと `~/.ssh` の準備(SSH agent relay 用)
 3. chezmoi のインストールと Windows エディタ設定(VSCode / Zed)の配備
 4. VSCode 拡張機能のインストール
@@ -26,6 +27,10 @@ irm https://raw.githubusercontent.com/cacampu/dotfiles/main/bootstrap.ps1 | iex
 
 SSH 鍵や PAT の事前準備は不要。push できるようにするには、セットアップ完了後に
 WSL 内で `gh auth login` を実行する(`gh` はセットアップで導入済み)。
+
+VSCode・Zed 本体はインストールしない。必要なら先に入れておく
+(`winget install Microsoft.VisualStudioCode ZedIndustries.Zed`)と、
+VSCode 拡張機能のインストールまで bootstrap がやってくれる。
 
 ### Linux(デスクトップ)
 
