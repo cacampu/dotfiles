@@ -119,15 +119,34 @@ symlink() {
     log "  $dst -> $src"
 }
 
-# .config/ 直下のエントリを丸ごと $HOME/.config/ へリンクする。
-# 新しい設定はディレクトリを追加するだけで反映される (スクリプト編集不要)。
+# アプリ自身が state を書き込む設定ディレクトリ。丸ごと symlink すると repo に
+# state が漏れる(例: zsh が ZDOTDIR に書く .zcompdump)ため、中身をファイル単位でリンクする。
+FILE_LINK_DIRS="zsh"
+
+# ディレクトリ内の全ファイルを構造を保ったまま個別 symlink する(repo に無い state ファイルには触れない)。
+link_dir_contents() {
+    local srcdir="$1" dstdir="$2" f rel
+    [ -L "$dstdir" ] && rm -f "$dstdir"   # 旧: dir 全体が symlink だった場合は実 dir に戻す
+    mkdir -p "$dstdir"
+    while IFS= read -r f; do
+        rel="${f#"$srcdir"/}"
+        symlink "$f" "$dstdir/$rel"
+    done < <(find "$srcdir" \( -type f -o -type l \))
+}
+
+# .config/ 直下のエントリを $HOME/.config/ へリンクする。原則ディレクトリごと symlink
+# (新しい設定はファイルを足すだけで反映)。ただし FILE_LINK_DIRS のものはファイル単位でリンクする。
 create_symlinks() {
     log "Creating symlinks..."
     symlink "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv"
-    local src
+    local src name
     for src in "$DOTFILES_DIR"/.config/*; do
         [ -e "$src" ] || continue
-        symlink "$src" "$HOME/.config/$(basename "$src")"
+        name=$(basename "$src")
+        case " $FILE_LINK_DIRS " in
+            *" $name "*) link_dir_contents "$src" "$HOME/.config/$name" ;;
+            *)           symlink "$src" "$HOME/.config/$name" ;;
+        esac
     done
 }
 
