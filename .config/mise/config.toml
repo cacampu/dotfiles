@@ -10,6 +10,7 @@ julia  = "latest"
 neovim = "latest"
 nim    = "latest"
 node   = "lts"
+opam   = "latest"
 ripgrep = "latest"
 zellij = "latest"
 zig    = "0.15.1"
@@ -18,6 +19,7 @@ zig    = "0.15.1"
 EDITOR     = "nvim"
 GOPATH     = "{{env.HOME}}/.local/share/go"
 NIMBLE_DIR = "{{env.HOME}}/.local/share/nimble"
+OPAMROOT   = "{{env.HOME}}/.local/share/opam"
 _.path     = [
     "~/.local/share/go/bin",
     "~/.local/share/nimble/bin",
