@@ -99,6 +99,31 @@ function Install-VscodeExtensions {
     }
 }
 
+# starship のインストールと PowerShell プロファイルへの init hook 追加 (WSL 側 loaders 相当)
+function Install-Starship {
+    if (-not (Get-Command starship -ErrorAction SilentlyContinue)) {
+        Log "Installing starship..."
+        winget install --id Starship.Starship --accept-source-agreements --accept-package-agreements
+        $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
+                    [Environment]::GetEnvironmentVariable("Path", "User")
+    } else {
+        Log "starship already installed, skipping"
+    }
+
+    # $PROFILE に init hook を冪等に追記
+    $profilePath = $PROFILE
+    $profileDir  = Split-Path $profilePath -Parent
+    if (-not (Test-Path $profileDir))  { New-Item -ItemType Directory -Path $profileDir -Force | Out-Null }
+    if (-not (Test-Path $profilePath)) { New-Item -ItemType File -Path $profilePath -Force | Out-Null }
+
+    if (Select-String -Path $profilePath -Pattern 'starship init' -Quiet) {
+        Log "starship hook already present in profile, skipping"
+    } else {
+        Log "Adding starship hook to PowerShell profile..."
+        Add-Content -Path $profilePath -Value 'Invoke-Expression (&starship init powershell)'
+    }
+}
+
 # WSL 側のセットアップ (クローン → install-wsl.sh)
 function Setup-WslSide {
     Log "Setting up WSL side..."
@@ -124,6 +149,7 @@ Install-Npiperelay
 Setup-WindowsSshDir
 Setup-Chezmoi
 Install-VscodeExtensions
+Install-Starship
 Setup-WslSide
 
 Log "Bootstrap complete!"

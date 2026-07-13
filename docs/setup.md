@@ -18,7 +18,8 @@ irm https://raw.githubusercontent.com/cacampu/dotfiles/main/bootstrap.ps1 | iex
 2. npiperelay のインストールと `~/.ssh` の準備(SSH agent relay 用)
 3. chezmoi のインストールと Windows エディタ設定(VSCode / Zed)の配備
 4. VSCode 拡張機能のインストール
-5. WSL 内でのクローン(HTTPS・認証不要)と `install-wsl.sh` の実行
+5. starship のインストールと PowerShell プロファイル(`$PROFILE`)への init hook 追加
+6. WSL 内でのクローン(HTTPS・認証不要)と `install-wsl.sh` の実行
    (`/etc/wsl.conf` 更新にともなう WSL 再起動も自動で処理)
 
 SSH 鍵や PAT の事前準備は不要。push できるようにするには、セットアップ完了後に
