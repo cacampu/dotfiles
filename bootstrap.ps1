@@ -71,6 +71,26 @@ function Setup-WindowsSshDir {
     if (-not (Test-Path $knownHostsPath)) { New-Item -ItemType File -Path $knownHostsPath | Out-Null }
 }
 
+# VSCode / Zed 本体のインストール (winget)
+function Install-Editors {
+    if (-not (Get-Command code -ErrorAction SilentlyContinue)) {
+        Log "Installing VSCode..."
+        winget install --id Microsoft.VisualStudioCode --accept-source-agreements --accept-package-agreements
+    } else {
+        Log "VSCode already installed, skipping"
+    }
+
+    if (-not (Get-Command zed -ErrorAction SilentlyContinue)) {
+        Log "Installing Zed..."
+        winget install --id ZedIndustries.Zed --accept-source-agreements --accept-package-agreements
+    } else {
+        Log "Zed already installed, skipping"
+    }
+
+    $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
+                [Environment]::GetEnvironmentVariable("Path", "User")
+}
+
 # chezmoi (Windows ネイティブ) でエディタ設定を AppData へ配備
 function Setup-Chezmoi {
     if (-not (Get-Command chezmoi -ErrorAction SilentlyContinue)) {
@@ -147,6 +167,7 @@ function Setup-WslSide {
 Ensure-Wsl
 Install-Npiperelay
 Setup-WindowsSshDir
+Install-Editors
 Setup-Chezmoi
 Install-VscodeExtensions
 Install-Starship
